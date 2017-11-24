@@ -88,6 +88,8 @@ public class Unit implements Serializable {
         this.hero = hero;
     }
 
+    public Hero getHero(){ return hero;}
+
     public Group getActionPanel() {
         return actionPanel;
     }
@@ -249,6 +251,7 @@ public class Unit implements Serializable {
                 effects.remove(i);
             }
         }
+
     }
 
     public void changeHp(int value) {

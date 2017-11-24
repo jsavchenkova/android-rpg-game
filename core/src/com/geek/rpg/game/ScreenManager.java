@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.geek.rpg.game.screens.BattleScreen;
+import com.geek.rpg.game.screens.LevelScreen;
 import com.geek.rpg.game.screens.MenuScreen;
 
 /**
@@ -13,7 +14,7 @@ import com.geek.rpg.game.screens.MenuScreen;
 
 public class ScreenManager {
     public enum ScreenType {
-        MENU, BATTLE
+        MENU, BATTLE, LEVEL
     }
 
     private static final ScreenManager ourInstance = new ScreenManager();
@@ -27,6 +28,7 @@ public class ScreenManager {
     private BattleScreen battleScreen;
     private LoadingScreen loadingScreen;
     private MenuScreen menuScreen;
+    private LevelScreen levelScreen;
 
     public Viewport getViewport() {
         return viewport;
@@ -37,6 +39,7 @@ public class ScreenManager {
         this.loadingScreen = new LoadingScreen(batch);
         this.battleScreen = new BattleScreen(batch);
         this.menuScreen = new MenuScreen(batch);
+        this.levelScreen = new LevelScreen(batch);
         this.viewport = new FitViewport(1280, 720);
         this.viewport.update(1280, 720, true);
         this.viewport.apply();
@@ -64,6 +67,10 @@ public class ScreenManager {
             case BATTLE:
                 Assets.getInstance().loadAssets(ScreenType.BATTLE);
                 rpgGame.setScreen(battleScreen);
+                break;
+            case LEVEL:
+                Assets.getInstance().loadAssets(ScreenType.LEVEL);
+                rpgGame.setScreen(levelScreen);
                 break;
         }
     }

@@ -53,6 +53,12 @@ public class Assets {
                 assetManager.finishLoading();
                 textureAtlas = assetManager.get("rpg.pack", TextureAtlas.class);
                 break;
+            case LEVEL:
+                assetManager.load("rpg.pack", TextureAtlas.class);
+                assetManager.load("background.png", Texture.class);
+                assetManager.finishLoading();
+                textureAtlas = assetManager.get("rpg.pack", TextureAtlas.class);
+                break;
         }
     }
 

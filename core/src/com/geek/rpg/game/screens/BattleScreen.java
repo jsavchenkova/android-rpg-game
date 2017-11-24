@@ -50,6 +50,7 @@ public class BattleScreen implements Screen {
     private MyInputProcessor mip;
     private SpecialFXEmitter specialFXEmitter;
 
+
     public SpecialFXEmitter getSpecialFXEmitter() {
         return specialFXEmitter;
     }
@@ -93,9 +94,14 @@ public class BattleScreen implements Screen {
         Hero player2 = new Hero();
         unitFactory = new UnitFactory();
 
+//        player2.setArmy(
+//                unitFactory.createUnit(UnitFactory.UnitType.KNIGHT, true, true, 1), null,
+//                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), unitFactory.createUnit(UnitFactory.UnitType.MAGE, true, true, 4),
+//                null, null
+//        );
         player2.setArmy(
-                unitFactory.createUnit(UnitFactory.UnitType.KNIGHT, true, true, 1), null,
-                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), unitFactory.createUnit(UnitFactory.UnitType.MAGE, true, true, 4),
+                null, null,
+                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), null,
                 null, null
         );
 
@@ -212,6 +218,11 @@ public class BattleScreen implements Screen {
     }
 
     public void nextTurn() {
+        if(checkWin()){
+            GameSession.getInstance().saveSession();
+            ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.LEVEL);
+            return;
+        }
         for (int i = 0; i < units.size(); i++) {
             if (units.get(i).getActionPanel() != null) {
                 units.get(i).getActionPanel().setVisible(false);
@@ -225,10 +236,20 @@ public class BattleScreen implements Screen {
         } while (!units.get(currentUnitIndex).isAlive());
         currentUnit = units.get(currentUnitIndex);
         currentUnit.getTurn();
+
         animationTimer = 1.0f;
         if (currentUnit.getActionPanel() != null) {
             currentUnit.getActionPanel().setVisible(true);
         }
+    }
+
+    private boolean checkWin(){
+        for(int i=0; i<units.size(); i++){
+            if(currentUnit.getHero() != units.get(i).getHero()){
+                if(units.get(i).isAlive())return false;
+            }
+        }
+        return true;
     }
 
     public void update(float dt) {
@@ -254,6 +275,8 @@ public class BattleScreen implements Screen {
         }
         infoSystem.update(dt);
         specialFXEmitter.update(dt);
+
+
     }
 
     @Override
