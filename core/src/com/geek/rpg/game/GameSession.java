@@ -20,6 +20,7 @@ public class GameSession {
     }
 
     private Hero player;
+    private int level;
 
     private GameSession() {
     }
@@ -28,12 +29,21 @@ public class GameSession {
         return player;
     }
 
+    public int getLevel(){
+        return level;
+    }
+
+    public void setLevel(int level){
+        this.level = level;
+    }
+
     public void startNewSession() {
         player = new Hero();
+        level = 0;
         makeStandartArmy();
     }
 
-    public void saveSession() {
+    public void lhsaveSession() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Gdx.files.local("mydata.sav").file()));
             oos.writeObject(player);
