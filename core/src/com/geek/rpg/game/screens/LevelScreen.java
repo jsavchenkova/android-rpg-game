@@ -73,7 +73,7 @@ public class LevelScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
              //   GameSession.getInstance().startNewSession();
-                GameSession.getInstance().setLevel(GameSession.getInstance().getLevel()+2);
+                GameSession.getInstance().getEnemy().setLevel(GameSession.getInstance().getEnemy().getLevel()+2);
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
 
             }

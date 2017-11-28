@@ -20,7 +20,8 @@ public class GameSession {
     }
 
     private Hero player;
-    private int level;
+    private Hero enemy;
+
 
     private GameSession() {
     }
@@ -29,21 +30,20 @@ public class GameSession {
         return player;
     }
 
-    public int getLevel(){
-        return level;
-    }
+    public Hero getEnemy() {return enemy;}
 
-    public void setLevel(int level){
-        this.level = level;
-    }
+
 
     public void startNewSession() {
         player = new Hero();
-        level = 0;
+        player.setLevel(0);
         makeStandartArmy();
+        enemy = new Hero();
+        enemy.setLevel(0);
+        makeEnemyArmy();
     }
 
-    public void lhsaveSession() {
+    public void saveSession() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Gdx.files.local("mydata.sav").file()));
             oos.writeObject(player);
@@ -68,6 +68,21 @@ public class GameSession {
         player.setArmy(
                 null, factory.createUnit(UnitFactory.UnitType.KNIGHT, false, false, 1),
                 factory.createUnit(UnitFactory.UnitType.MAGE, false, false, 1), factory.createUnit(UnitFactory.UnitType.SKELETON, false, false, 1),
+                null, null
+        );
+    }
+
+    public void makeEnemyArmy(){
+
+//        player2.setArmy(
+//                unitFactory.createUnit(UnitFactory.UnitType.KNIGHT, true, true, 1), null,
+//                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), unitFactory.createUnit(UnitFactory.UnitType.MAGE, true, true, 4),
+//                null, null
+//        );
+        UnitFactory unitFactory =new UnitFactory();
+        enemy.setArmy(
+                null, null,
+                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, enemy.getLevel()+2), null,
                 null, null
         );
     }

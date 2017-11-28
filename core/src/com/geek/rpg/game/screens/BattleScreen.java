@@ -92,7 +92,7 @@ public class BattleScreen implements Screen {
             }
         }
         Hero player1 = GameSession.getInstance().getPlayer();
-        Hero player2 = new Hero();
+        Hero player2 = GameSession.getInstance().getEnemy();
         unitFactory = new UnitFactory();
 
 //        player2.setArmy(
@@ -100,11 +100,11 @@ public class BattleScreen implements Screen {
 //                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), unitFactory.createUnit(UnitFactory.UnitType.MAGE, true, true, 4),
 //                null, null
 //        );
-        player2.setArmy(
-                null, null,
-                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, GameSession.getInstance().getLevel()+2), null,
-                null, null
-        );
+//        player2.setArmy(
+//                null, null,
+//                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, GameSession.getInstance().getLevel()+2), null,
+//                null, null
+//        );
 
         units = new ArrayList<Unit>();
 
@@ -120,6 +120,7 @@ public class BattleScreen implements Screen {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 if (player2.getUnits()[i][j] != null) {
+                    unitFactory.reloadUnit(player2.getUnits()[i][j]);
                     units.add(player2.getUnits()[i][j]);
                     player2.getUnits()[i][j].setToMap(this, i + 2, j);
                 }

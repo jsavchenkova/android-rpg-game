@@ -13,9 +13,16 @@ import java.util.List;
 
 public class Hero implements Serializable {
     private Unit[][] units;
+    private int level;
 
     public Unit[][] getUnits() {
         return units;
+    }
+
+    public int getLevel(){return  level;}
+
+    public void setLevel(int level){
+        this.level = level;
     }
 
     public Hero() {
