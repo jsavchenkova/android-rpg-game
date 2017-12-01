@@ -12,18 +12,9 @@ public class DefenceStanceAction extends BaseAction {
 
     @Override
     public boolean action(Unit me) {
-        if (me.getTarget() == null || !me.isMyTeammate(me.getTarget())) {
-            DefenceStanceEffect dse = new DefenceStanceEffect();
-            dse.start(me, 1);
-            me.addEffect(dse);
-            return true;
-        }
-        if(me.isMyTeammate(me.getTarget())){
-            DefenceStanceEffect dse = new DefenceStanceEffect();
-            dse.start(me.getTarget(), 2);
-            me.getTarget().addEffect(dse);
-            return true;
-        }
-        return false;
+        DefenceStanceEffect dse = new DefenceStanceEffect();
+        dse.start(me, 1);
+        me.addEffect(dse);
+        return true;
     }
 }
