@@ -47,6 +47,7 @@ public class GameSession {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Gdx.files.local("mydata.sav").file()));
             oos.writeObject(player);
+            oos.writeObject(enemy);
             oos.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,6 +58,7 @@ public class GameSession {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Gdx.files.local("mydata.sav").file()));
             this.player = (Hero)ois.readObject();
+            this.enemy = (Hero)ois.readObject();
             ois.close();
         } catch (Exception e) {
             e.printStackTrace();

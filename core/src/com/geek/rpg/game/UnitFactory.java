@@ -22,7 +22,7 @@ public class UnitFactory {
     }
 
     private Map<UnitType, Unit> data;
-    private List<Autopilot> aiBank;
+    transient private List<Autopilot> aiBank;
     private List<BaseAction> actions;
 
     public List<BaseAction> getActions() {
@@ -86,7 +86,7 @@ public class UnitFactory {
     public void reloadUnit(Unit unit) {
         Unit unitPattern = data.get(unit.getType());
         unit.reload(unitPattern.getTexture(), unitPattern.getActions());
-        if (unit.isAI()) {
+        if (unit.isAutopiloted()) {
             unit.setAutopilot(aiBank.get(0));
         }
     }
@@ -97,6 +97,7 @@ public class UnitFactory {
         unit.setLevelTo(level);
         unit.setActions(unitPattern.getActions());
         if (ai) {
+            unit.setAutopiloted(true);
             unit.setAutopilot(aiBank.get(0));
         }
         unit.setFlip(flip);

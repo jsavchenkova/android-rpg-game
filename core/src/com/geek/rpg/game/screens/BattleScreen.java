@@ -95,17 +95,6 @@ public class BattleScreen implements Screen {
         Hero player2 = GameSession.getInstance().getEnemy();
         unitFactory = new UnitFactory();
 
-//        player2.setArmy(
-//                unitFactory.createUnit(UnitFactory.UnitType.KNIGHT, true, true, 1), null,
-//                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), unitFactory.createUnit(UnitFactory.UnitType.MAGE, true, true, 4),
-//                null, null
-//        );
-//        player2.setArmy(
-//                null, null,
-//                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, GameSession.getInstance().getLevel()+2), null,
-//                null, null
-//        );
-
         units = new ArrayList<Unit>();
 
         for (int i = 0; i < 2; i++) {
