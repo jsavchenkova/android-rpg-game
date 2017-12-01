@@ -51,6 +51,7 @@ public class BattleScreen implements Screen {
     private SpecialFXEmitter specialFXEmitter;
 
 
+
     public SpecialFXEmitter getSpecialFXEmitter() {
         return specialFXEmitter;
     }
@@ -91,19 +92,8 @@ public class BattleScreen implements Screen {
             }
         }
         Hero player1 = GameSession.getInstance().getPlayer();
-        Hero player2 = new Hero();
+        Hero player2 = GameSession.getInstance().getEnemy();
         unitFactory = new UnitFactory();
-
-//        player2.setArmy(
-//                unitFactory.createUnit(UnitFactory.UnitType.KNIGHT, true, true, 1), null,
-//                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), unitFactory.createUnit(UnitFactory.UnitType.MAGE, true, true, 4),
-//                null, null
-//        );
-        player2.setArmy(
-                null, null,
-                unitFactory.createUnit(UnitFactory.UnitType.SKELETON, true, true, 2), null,
-                null, null
-        );
 
         units = new ArrayList<Unit>();
 
@@ -119,6 +109,7 @@ public class BattleScreen implements Screen {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 if (player2.getUnits()[i][j] != null) {
+                    unitFactory.reloadUnit(player2.getUnits()[i][j]);
                     units.add(player2.getUnits()[i][j]);
                     player2.getUnits()[i][j].setToMap(this, i + 2, j);
                 }
@@ -219,9 +210,13 @@ public class BattleScreen implements Screen {
 
     public void nextTurn() {
         if(checkWin()){
-            GameSession.getInstance().saveSession();
+
             ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.LEVEL);
             return;
+        }
+        if(checkDefeat()){
+            GameSession.getInstance().saveSession();
+            ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.MENU);
         }
         for (int i = 0; i < units.size(); i++) {
             if (units.get(i).getActionPanel() != null) {
@@ -245,7 +240,16 @@ public class BattleScreen implements Screen {
 
     private boolean checkWin(){
         for(int i=0; i<units.size(); i++){
-            if(currentUnit.getHero() != units.get(i).getHero()){
+            if(GameSession.getInstance().getPlayer() != units.get(i).getHero()){
+                if(units.get(i).isAlive())return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkDefeat(){
+        for(int i=0; i<units.size(); i++){
+            if(GameSession.getInstance().getPlayer() == units.get(i).getHero()){
                 if(units.get(i).isAlive())return false;
             }
         }

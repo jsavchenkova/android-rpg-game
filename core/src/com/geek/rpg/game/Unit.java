@@ -34,7 +34,8 @@ public class Unit implements Serializable {
     private int maxHp;
     private int level;
     private Rectangle rect;
-    private Autopilot autopilot;
+    private boolean autopiloted;
+    transient private Autopilot autopilot;
     private Vector2 position;
     private boolean flip;
     private float attackAction;
@@ -55,6 +56,14 @@ public class Unit implements Serializable {
 
     public static final int WIDTH = 90;
     public static final int HEIGHT = 150;
+
+    public void setAutopiloted(boolean autopiloted){
+        this.autopiloted = autopiloted;
+    }
+
+    public boolean isAutopiloted(){
+        return autopiloted;
+    }
 
     public void setCurrentAnimation(AnimationType currentAnimation) {
         this.currentAnimation = currentAnimation;
