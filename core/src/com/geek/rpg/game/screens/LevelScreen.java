@@ -74,6 +74,7 @@ public class LevelScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
              //   GameSession.getInstance().startNewSession();
                 GameSession.getInstance().getEnemy().setLevel(GameSession.getInstance().getEnemy().getLevel()+2);
+                GameSession.getInstance().makeEnemyArmy();
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
 
             }
@@ -81,7 +82,11 @@ public class LevelScreen implements Screen {
         btnRestartLevel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                GameSession.getInstance().loadSession();
+              //  GameSession.getInstance().loadSession();
+                GameSession.getInstance().getEnemy().setLevel(GameSession.getInstance().getEnemy().getLevel());
+                GameSession.getInstance().getPlayer().setLevel(GameSession.getInstance().getPlayer().getLevel());
+                GameSession.getInstance().makeEnemyArmy();
+                GameSession.getInstance().makeStandartArmy();
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.BATTLE);
             }
         });
