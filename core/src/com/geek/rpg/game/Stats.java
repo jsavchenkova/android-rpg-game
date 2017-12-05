@@ -25,6 +25,8 @@ public class Stats implements Cloneable, Serializable {
     private float defencePerLevel;
     private float spellPowerPerLevel;
 
+    private Unit defender;
+
     @Override
     protected Object clone() {
         try {
@@ -153,6 +155,14 @@ public class Stats implements Cloneable, Serializable {
 
     public void setSpellPowerPerLevel(float spellPowerPerLevel) {
         this.spellPowerPerLevel = spellPowerPerLevel;
+    }
+
+    public void setDefender(Unit defender){
+        this.defender = defender;
+    }
+
+    public Unit getDefender(){
+        return defender;
     }
 
     public Stats(int level, int baseStrength, int baseDexterity, int baseEndurance, int baseDefence, int baseSpellPower, float strengthPerLevel, float dexterityPerLevel, float endurancePerLevel, float defencePerLevel, float spellPowerPerLevel) {

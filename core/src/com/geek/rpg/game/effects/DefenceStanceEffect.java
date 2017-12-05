@@ -6,6 +6,7 @@ import com.geek.rpg.game.InfoSystem;
 import com.geek.rpg.game.Unit;
 
 public class DefenceStanceEffect extends Effect {
+
     @Override
     public void start(Unit unit, int rounds) {
         super.start(unit, rounds);

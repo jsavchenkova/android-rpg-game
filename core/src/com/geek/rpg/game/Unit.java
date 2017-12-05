@@ -286,6 +286,16 @@ public class Unit implements Serializable {
         effects.add(effect);
     }
 
+    public void endEffect(Class cl){
+        for(int i=0; i<effects.size(); i++){
+            if(effects.get(i).getClass().equals((Class)cl) ){
+                effects.get(i).end();
+                effects.remove(i);
+                return;
+            }
+        }
+    }
+
     public void setLevelTo(int newLevel) {
         this.level = newLevel;
         this.stats.recalculate(newLevel);
