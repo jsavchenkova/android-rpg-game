@@ -17,10 +17,17 @@ public class MeleeAttackAction extends BaseAction {
         me.setCurrentAnimation(Unit.AnimationType.ATTACK);
         if (!Calculator.isTargetEvaded(me, me.getTarget())) {
             int dmg = Calculator.getMeleeDamage(me, me.getTarget());
-            me.getTarget().changeHp(-dmg);
+            if(me.getTarget().getStats().getDefender() != null){
+                me.getTarget().getStats().getDefender().changeHp(-(1+dmg*2/3));
+                me.getTarget().changeHp(-(1+dmg/3));
+                me.getTarget().getStats().setDefender(null);
+            }else {
+                me.getTarget().changeHp(-dmg);
+            }
         } else {
             me.getTarget().evade();
         }
+
         return true;
     }
 }
