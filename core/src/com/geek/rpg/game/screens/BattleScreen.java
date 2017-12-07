@@ -150,12 +150,12 @@ public class BattleScreen implements Screen {
         skin = new Skin(Assets.getInstance().getAtlas());
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.getDrawable("menuBtn");
+        textButtonStyle.up = skin.getDrawable("menuBtn1");
         textButtonStyle.font = font;
         skin.add("tbs", textButtonStyle);
 
         Button btnMenu = new TextButton("MENU", skin, "tbs");
-        btnMenu.setPosition(1000, 600);
+        btnMenu.setPosition(1180, 600);
         stage.addActor(btnMenu);
         btnMenu.addListener(new ChangeListener() {
             @Override
