@@ -49,6 +49,8 @@ public class BattleScreen implements Screen {
     private Skin skin;
     private MyInputProcessor mip;
     private SpecialFXEmitter specialFXEmitter;
+    private Button btnUpLevel;
+    private int upTimer;
 
 
 
@@ -162,6 +164,18 @@ public class BattleScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 GameSession.getInstance().saveSession();
                 ScreenManager.getInstance().switchScreen(ScreenManager.ScreenType.MENU);
+            }
+        });
+
+        btnUpLevel = new TextButton("UP", skin, "tbs");
+        btnUpLevel.setVisible(false);
+        stage.addActor(btnUpLevel);
+        btnUpLevel.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(currentUnit.getTarget() == currentUnit || currentUnit.isMyTeammate(currentUnit.getTarget())){
+                    currentUnit.getTarget().setLevelTo(currentUnit.getTarget().getLevel()+1);
+                }
             }
         });
 
@@ -280,7 +294,11 @@ public class BattleScreen implements Screen {
         infoSystem.update(dt);
         specialFXEmitter.update(dt);
 
-
+        if(upTimer > 0) {
+        upTimer--;
+        }else{
+            btnUpLevel.setVisible(false);
+        }
     }
 
     @Override
@@ -303,6 +321,16 @@ public class BattleScreen implements Screen {
                 units.get(i).renderInfo(batch, font);
             }
         }
+
+
+        int rand = (int)(Math.random()*100000);
+        if (rand > 99980){
+            int randY = (int)(Math.random()*650);
+            btnUpLevel.setPosition(1180, randY);
+            btnUpLevel.setVisible(true);
+            upTimer = 200;
+        }
+
         infoSystem.render(batch, font);
         specialFXEmitter.render(batch);
         batch.end();
